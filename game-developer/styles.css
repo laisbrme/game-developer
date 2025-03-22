@@ -1,0 +1,131 @@
+* {
+font-family: 'Mochiy Pop One', sans-serif;
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100vh;
+    color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff4ce;
+    text-align: center;
+}
+
+.header-area {
+    width: 100%;
+    background: #E57421;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.header-area img {
+    height: 100px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#ui {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 12px;
+    
+}
+
+#score-h2 {
+    color: #1b3a2c;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#score {
+    color: #d62828; 
+    font-size: 28px; 
+    font-weight: bold;
+}
+
+canvas {
+    background-color:#f1f1f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    display: block;
+}
+
+.noselect {
+    user-select: none;
+}
+
+#replay {
+    background: #EE5151;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 20px;
+}
+
+#replay:hover {
+    background: #CD3333;
+    transform: scale(1.05);
+}
+
+#replay:active {
+    transform: scale(0.95);
+}
+
+#author {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 600;
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #f8f8f8;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #E57421;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#author span {
+    margin-left: 20px;
+    letter-spacing: 2px;
+}
+
+#author h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+#author h2 {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
