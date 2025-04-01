@@ -7,7 +7,30 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
+const scaledCanvas = {
+    width: canvas.width / 4, // Largura do canvas escalado
+    height: canvas.height / 4 // Altura do canvas escalado
+}
+
 const gravity = 0.5; // Definição da gravidade (constante que afeta a velocidade do jogador)
+
+// Definição de sprites (imagens) para o jogo:
+class Sprite {
+    constructor({position, imageSrc}) { // Embrulho os argumentos com {} em um objeto para facilitar a leitura e a manutenção do código.
+        this.position = position; // Posição do sprite (objeto com propriedades x e y)
+        this.image = new Image(); // Cria uma nova imagem
+        this.image.src = imageSrc; // Define a fonte da imagem
+    }
+
+    draw() { // Método para desenhar o sprite no canvas
+        if (!this.image) return; // Se a imagem não estiver carregada, não desenha nada
+        ctx.drawImage(this.image, this.position.x, this.position.y); // Desenha a imagem no canvas
+    }
+
+    update() { // Método para atualizar o sprite
+        this.draw(); // Chama o método draw para desenhar o sprite
+    }
+}
 
 // Definições do jogador:
 class Player {
@@ -59,6 +82,14 @@ const keys = {
     // ArrowDown : { pressed: false }, // Tecla 'ArrowDown' pressionada
 }
 
+const background = new Sprite({ // Cria uma nova instância do fundo do jogo
+    position: { // Posição do fundo (objeto com propriedades x e y)
+        x: 0, 
+        y: 0 
+    }, 
+    imageSrc: '../img/background.png' // Fonte da imagem do fundo
+})
+
 // Função definida para executar a animação no canvas: 
 function animate() {
     window.requestAnimationFrame(animate); // Chama a função animate novamente para criar um loop de animação
@@ -66,7 +97,13 @@ function animate() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Atualiza a posição do jogador:
+    // Configuração do canvas para aumentar a resolução e permanecer no mesmo tamanho:
+    ctx.save(); // Salva o estado atual do canvas
+    ctx.scale(4, 4) // Escala o canvas para aumentar a resolução
+    ctx.translate(0, -background.image.height + scaledCanvas.height) // Translada o canvas para a posição (0, ?)
+    background.update(); // Atualiza o fundo
+    ctx.restore(); // Restaura o estado do canvas
+
     player.update(); // Atualiza a posição do jogador
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
@@ -87,7 +124,7 @@ window.addEventListener('keydown', (event) => {
             keys.d.pressed = true; // Define a tecla 'd' como pressionada
             break;
         case 'w': // Tecla 'w' pressionada
-            player.velocity.y = -20; // Move o jogador para cima
+            player.velocity.y = -10; // Move o jogador para cima
             break;
         case 'ArrowLeft': // Tecla 'ArrowLeft' pressionada
             keys.ArrowLeft.pressed = true; // Define a tecla 'ArrowLeft' como pressionada
@@ -96,7 +133,7 @@ window.addEventListener('keydown', (event) => {
             keys.ArrowRight.pressed = true; // Define a tecla 'ArrowRight' como pressionada
             break;
         case 'ArrowUp': // Tecla 'ArrowUp' pressionada
-            player.velocity.y = -20; // Move o jogador para cima
+            player.velocity.y = -10; // Move o jogador para cima
             break;
     }
 
