@@ -216,3 +216,10 @@ p span {
         right: 100%;
     }
 }
+
+canvas {
+    position: absolute;
+    top: 10rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 1%;
+}
