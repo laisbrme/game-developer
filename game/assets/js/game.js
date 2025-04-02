@@ -12,58 +12,63 @@ const scaledCanvas = {
     height: canvas.height / 4 // Altura do canvas escalado
 }
 
-const gravity = 0.5; // Definição da gravidade (constante que afeta a velocidade do jogador)
+// Criação de um array para armazenar as colisões do chão:
+console.log(floorCollisions) // Verifica se a variável floorCollisions está definida corretamente
 
-// Definição de sprites (imagens) para o jogo:
-class Sprite {
-    constructor({position, imageSrc}) { // Embrulho os argumentos com {} em um objeto para facilitar a leitura e a manutenção do código.
-        this.position = position; // Posição do sprite (objeto com propriedades x e y)
-        this.image = new Image(); // Cria uma nova imagem
-        this.image.src = imageSrc; // Define a fonte da imagem
-    }
-
-    draw() { // Método para desenhar o sprite no canvas
-        if (!this.image) return; // Se a imagem não estiver carregada, não desenha nada
-        ctx.drawImage(this.image, this.position.x, this.position.y); // Desenha a imagem no canvas
-    }
-
-    update() { // Método para atualizar o sprite
-        this.draw(); // Chama o método draw para desenhar o sprite
-    }
+const floorCollisions2D = [] // Cria um array vazio para armazenar as colisões do chão
+for (let i = 0; i < floorCollisions.length; i += 36) { // Loop para percorrer as colisões do chão
+    floorCollisions2D.push(floorCollisions.slice(i, i + 36)); // Adiciona as colisões do chão ao array
 }
 
-// Definições do jogador:
-class Player {
-    constructor(position) { // Com este argumento, podemos passar a posição do jogador como um objeto com propriedades x e y.
-        // Propriedades do jogador individual terá dentro de si:
-        this.width = 50; // Largura do jogador
-        this.height = 50; // Altura do jogador
-        this.position = position // Posição do jogador (objeto com propriedades x e y)
-        this.velocity = { // Velocidade do jogador (objeto com propriedades x e y)
-            x: 0, // Velocidade eixo horizontal
-            y: 1 // Velocidade eixo vertical
+console.log(floorCollisions2D) // Verifica se o array de colisões do chão está definido corretamente
+
+const collisionBlocks = [] // Cria um array vazio para armazenar os blocos de colisão
+
+floorCollisions2D.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+        console.log(symbol) // Verifica se cada símbolo de colisão do chão está definido corretamente
+
+        if (symbol === 202) { // Verifica se o símbolo é igual a 202 (representa uma colisão do chão)
+            console.log("Desenhe um bloco aqui!")
+            collisionBlocks.push(
+                new CollisionBlock({ // Adiciona um novo bloco de colisão ao array
+                    position: {
+                        x: x * 16, // Posição eixo horizontal
+                        y: y * 16, // Posição eixo vertical
+                    },
+                })
+            )
         }
-    } 
+    })
+})
 
-    // Método para desenhar o jogador no canvas:
-    draw() {
-        ctx.fillStyle = 'red'; // Cor do jogador
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Desenha o retângulo do jogador
-    }
-
-    // Método para atualizar a posição do jogador:
-    update() {
-        this.draw(); // Chama o método draw para desenhar o jogador
-
-        this.position.x += this.velocity.x; // Move o jogador para baixo
-        this.position.y += this.velocity.y; // Move o jogador para baixo
-
-        // Criando colisão entre o jogador e o chão para que o jogador não caia infinitamente:
-        if (this.position.y + this.height + this.velocity.y < canvas.height) 
-            this.velocity.y += gravity; // Aumenta a velocidade do jogador para baixo (simulando gravidade)
-        else this.velocity.y = 0; // Se o jogador atingir o chão, a velocidade vertical é zerada
-    }
+// Criação de um array para armazenar as colisões das plataformas:
+const platformCollisions2D = [] // Cria um array vazio para armazenar as colisões das plataformas
+for (let i = 0; i < platformCollisions.length; i += 36) { // Loop para percorrer as colisões das plataformas
+    platformCollisions2D.push(platformCollisions.slice(i, i + 36)); // Adiciona as colisões das plataformas ao array
 }
+
+const platformCollisionBlocks = [] // Cria um array vazio para armazenar os blocos de colisão
+
+platformCollisions2D.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+        console.log(symbol) // Verifica se cada símbolo de colisão do chão está definido corretamente
+
+        if (symbol === 202) { // Verifica se o símbolo é igual a 202 (representa uma colisão do chão)
+            console.log("Desenhe um bloco aqui!")
+            platformCollisionBlocks.push(
+                new CollisionBlock({ // Adiciona um novo bloco de colisão ao array
+                    position: {
+                        x: x * 16, // Posição eixo horizontal
+                        y: y * 16, // Posição eixo vertical
+                    },
+                })
+            )
+        }
+    })
+})
+
+const gravity = 0.5; // Definição da gravidade (constante que afeta a velocidade do jogador)
 
 // Cria uma nova instância do jogador:
 const player = new Player({
@@ -97,11 +102,18 @@ function animate() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Configuração do canvas para aumentar a resolução e permanecer no mesmo tamanho:
+    // Configuração do canvas escalado:
     ctx.save(); // Salva o estado atual do canvas
     ctx.scale(4, 4) // Escala o canvas para aumentar a resolução
     ctx.translate(0, -background.image.height + scaledCanvas.height) // Translada o canvas para a posição (0, ?)
     background.update(); // Atualiza o fundo
+    collisionBlocks.forEach((collisionBlock) => { // Loop para percorrer os blocos de colisão
+        collisionBlock.update(); // Atualiza cada bloco de colisão
+    })
+
+    platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
+        block.update(); // Atualiza cada bloco de colisão
+    })
     ctx.restore(); // Restaura o estado do canvas
 
     player.update(); // Atualiza a posição do jogador
