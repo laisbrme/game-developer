@@ -1,11 +1,27 @@
 /* Configuração do Canvas */
-
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 // Tamanho da janela canvas:
 canvas.width = 1024;
 canvas.height = 576;
+
+const persona = {
+    attack1Src: '../img/persona/Attack1.png',
+    attack2Src: '../img/persona/Attack2.png',
+    attack3Src: '../img/persona/Attack3.png',
+    deathSrc: '../img/persona/Death.png',
+    fallSrc: '../img/persona/Fall.png',
+    fallLeftSrc: '../img/persona/FallLeft.png',
+    idleSrc: '../img/persona/Idle.png', 
+    idleLeftSrc: '../img/persona/IdleLeft.png',
+    jumpSrc: '../img/persona/Jump.png',
+    jumpLeftSrc: '../img/persona/JumpLeft.png',
+    runSrc: '../img/persona/Run.png',
+    runLeftSrc: '../img/persona/RunLeft.png',
+    takeHitSrc: '../img/persona/TakeHit.png',
+    takeHitWhiteSrc: '../img/persona/Take Hit - white silhouette.png',
+}
 
 const scaledCanvas = {
     width: canvas.width / 4, // Largura do canvas escalado
@@ -67,6 +83,8 @@ const player = new Player({
         y: 80, // Posição eixo vertical
     },
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    imageSrc: persona.idleSrc, // Fonte da imagem do jogador
+    frameRate: 8, // Taxa de quadros do jogador
 }); 
 
 const keys = {
@@ -113,7 +131,7 @@ function animate() {
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) player.velocity.x = 1; // Move o jogador para a esquerda
     else if (keys.a.pressed || keys.ArrowLeft.pressed) player.velocity.x = -1; // Move o jogador para a direita
-    
+
     ctx.restore(); // Restaura o estado do canvas
 }
 
