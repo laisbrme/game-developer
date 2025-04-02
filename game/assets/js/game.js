@@ -13,23 +13,16 @@ const scaledCanvas = {
 }
 
 // Criação de um array para armazenar as colisões do chão:
-console.log(floorCollisions) // Verifica se a variável floorCollisions está definida corretamente
-
 const floorCollisions2D = [] // Cria um array vazio para armazenar as colisões do chão
 for (let i = 0; i < floorCollisions.length; i += 36) { // Loop para percorrer as colisões do chão
     floorCollisions2D.push(floorCollisions.slice(i, i + 36)); // Adiciona as colisões do chão ao array
 }
 
-console.log(floorCollisions2D) // Verifica se o array de colisões do chão está definido corretamente
-
 const collisionBlocks = [] // Cria um array vazio para armazenar os blocos de colisão
 
 floorCollisions2D.forEach((row, y) => {
     row.forEach((symbol, x) => {
-        console.log(symbol) // Verifica se cada símbolo de colisão do chão está definido corretamente
-
         if (symbol === 202) { // Verifica se o símbolo é igual a 202 (representa uma colisão do chão)
-            console.log("Desenhe um bloco aqui!")
             collisionBlocks.push(
                 new CollisionBlock({ // Adiciona um novo bloco de colisão ao array
                     position: {
@@ -52,10 +45,7 @@ const platformCollisionBlocks = [] // Cria um array vazio para armazenar os bloc
 
 platformCollisions2D.forEach((row, y) => {
     row.forEach((symbol, x) => {
-        console.log(symbol) // Verifica se cada símbolo de colisão do chão está definido corretamente
-
         if (symbol === 202) { // Verifica se o símbolo é igual a 202 (representa uma colisão do chão)
-            console.log("Desenhe um bloco aqui!")
             platformCollisionBlocks.push(
                 new CollisionBlock({ // Adiciona um novo bloco de colisão ao array
                     position: {
@@ -72,8 +62,11 @@ const gravity = 0.5; // Definição da gravidade (constante que afeta a velocida
 
 // Cria uma nova instância do jogador:
 const player = new Player({
-    x: 0, // Posição eixo horizontal
-    y: 0, // Posição eixo vertical
+    position: {
+        x: 16, // Posição eixo horizontal
+        y: 80, // Posição eixo vertical
+    },
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
 }); 
 
 const keys = {
@@ -114,13 +107,14 @@ function animate() {
     platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
         block.update(); // Atualiza cada bloco de colisão
     })
-    ctx.restore(); // Restaura o estado do canvas
 
     player.update(); // Atualiza a posição do jogador
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) player.velocity.x = 1; // Move o jogador para a esquerda
     else if (keys.a.pressed || keys.ArrowLeft.pressed) player.velocity.x = -1; // Move o jogador para a direita
+    
+    ctx.restore(); // Restaura o estado do canvas
 }
 
 // Inicia a animação
