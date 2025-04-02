@@ -1,25 +1,27 @@
 // Definições do jogador:
-class Player {
-    constructor({ position, collisionBlocks }) { // Com este argumento, podemos passar a posição do jogador como um objeto com propriedades x e y.
+class Player extends Sprite { // O jogador é uma extensão da classe Sprite, que é uma classe base para objetos que podem ser desenhados no canvas.
+    constructor({ position, collisionBlocks, imageSrc, frameRate, scale = 0.5 }) { // Com este argumento, podemos passar a posição do jogador como um objeto com propriedades x e y.
         // Propriedades do jogador individual terá dentro de si:
+        super({ imageSrc, frameRate, scale }) // Chama o construtor da classe pai (Sprite) para inicializar a imagem do jogador
         this.position = position // Posição do jogador (objeto com propriedades x e y)
         this.velocity = { // Velocidade do jogador (objeto com propriedades x e y)
             x: 0, // Velocidade eixo horizontal
             y: 1 // Velocidade eixo vertical
         }
-        this.width = 25; // Largura do jogador
-        this.height = 25; // Altura do jogador
         this.collisionBlocks = collisionBlocks; // Blocos de colisão do chão (passados como argumento)
     } 
 
-    // Método para desenhar o jogador no canvas:
-    draw() {
-        ctx.fillStyle = 'red'; // Cor do jogador
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Desenha o retângulo do jogador
-    }
+    // Método para desenhar o jogador (quadrado) no canvas:
+    // draw() {
+    //     ctx.fillStyle = 'red'; // Cor do jogador
+    //     ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Desenha o retângulo do jogador
+    // }
 
     // Método para atualizar a posição do jogador:
     update() {
+        this.updateFrames()
+        ctx.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        ctx.fillRect(this.position.x, this.positiony, this.width, this.height); // Desenha o retângulo do jogador
         this.draw(); // Chama o método draw para desenhar o jogador
 
         this.position.x += this.velocity.x; // Move o jogador para baixo
