@@ -57,16 +57,8 @@ body {
     justify-content: start;
     align-items: center;
     flex-grow: 1;
-}
-
-.backgroundMenu {
-    position: absolute; /* Permite posicionar elementos sobre a imagem */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Define a camada da imagem */
-    object-fit: cover; /* Ajusta a imagem para cobrir o contêiner */
+    gap: 1rem;
+    padding-top: 6rem;
 }
 
 /* Estilos da página Game  */
@@ -125,17 +117,14 @@ p span {
 }
 
 /* Estilo dos botões Index */
-#button-box{
+.button-box{
     display: flex;
-    flex-direction: row;
     height: 3rem;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    position: relative; /* Permite sobrepor os botões à imagem de fundo */
-    z-index: 2; /* Coloca os botões acima da imagem de fundo */
+    position: sticky;
     flex-shrink: 0;
-    margin-top: 10rem;
 }
 
 /* Estilo geral dos botões */
@@ -179,6 +168,53 @@ p span {
 #btn-3:hover {
     background: #CD3333;
     transform: scale(1.05);
+}
+
+/* Configurações dos elementos do Index */
+.clemente{
+    width: 150px;
+    position: absolute;
+    bottom: 6rem;
+}
+
+.ground{
+    width: 100%;
+    position: absolute;
+    bottom: -2rem;
+}
+
+.clouds-container {
+    position: absolute;
+    top: 1rem;
+    width: 200vw; /* O dobro da largura da tela */
+    display: flex;
+}
+
+.clouds {
+    width: 100vw; /* Cada imagem ocupa a largura da tela */
+}
+
+@keyframes clouds-animation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100vw);
+    }
+}
+
+.clouds-container {
+    animation: clouds-animation 20s linear infinite;
+}
+
+@keyframes trees-animation {
+    from {
+        right: -80px;
+    }
+
+    to {
+        right: 100%;
+    }
 }
 
 canvas {
