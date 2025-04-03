@@ -181,6 +181,53 @@ p span {
     transform: scale(1.05);
 }
 
+/* Configurações dos elementos do Index */
+.clemente{
+    width: 150px;
+    position: absolute;
+    bottom: 6rem;
+}
+
+.ground{
+    width: 100%;
+    position: absolute;
+    bottom: -2rem;
+}
+
+.clouds-container {
+    position: absolute;
+    top: 1rem;
+    width: 200vw; /* O dobro da largura da tela */
+    display: flex;
+}
+
+.clouds {
+    width: 100vw; /* Cada imagem ocupa a largura da tela */
+}
+
+@keyframes clouds-animation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100vw);
+    }
+}
+
+.clouds-container {
+    animation: clouds-animation 20s linear infinite;
+}
+
+@keyframes trees-animation {
+    from {
+        right: -80px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
+
 canvas {
     position: absolute;
     top: 10rem;
