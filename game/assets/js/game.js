@@ -1,12 +1,12 @@
-/* Configuração do Canvas */
+// * Configuração do Canvas
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
-// Tamanho da janela canvas:
+// * Tamanho da janela canvas:
 canvas.width = 1024;
 canvas.height = 576;
 
-// Configuração da persona:
+// * Configuração da persona:
 const persona = {
     attack1Position: {
         src: '../img/persona/Attack1.png',
@@ -85,7 +85,7 @@ const scaledCanvas = {
     height: canvas.height / 4 // Altura do canvas escalado
 }
 
-// Criação de um array para armazenar as colisões do chão:
+// * Criação de um array para armazenar as colisões do chão:
 const floorCollisions2D = [] // Cria um array vazio para armazenar as colisões do chão
 for (let i = 0; i < floorCollisions.length; i += 36) { // Loop para percorrer as colisões do chão
     floorCollisions2D.push(floorCollisions.slice(i, i + 36)); // Adiciona as colisões do chão ao array
@@ -108,7 +108,7 @@ floorCollisions2D.forEach((row, y) => {
     })
 })
 
-// Criação de um array para armazenar as colisões das plataformas:
+// * Criação de um array para armazenar as colisões das plataformas:
 const platformCollisions2D = [] // Cria um array vazio para armazenar as colisões das plataformas
 for (let i = 0; i < platformCollisions.length; i += 36) { // Loop para percorrer as colisões das plataformas
     platformCollisions2D.push(platformCollisions.slice(i, i + 36)); // Adiciona as colisões das plataformas ao array
@@ -132,13 +132,13 @@ platformCollisions2D.forEach((row, y) => {
     })
 })
 
-const gravity = 0.3 // Definição da gravidade (constante que afeta a velocidade do jogador)
+const gravity = 0.1 // Definição da gravidade (constante que afeta a velocidade do jogador)
 
-// Cria uma nova instância do jogador:
+// * Cria uma nova instância do jogador:
 const player = new Player({
     position: {
-        x: 16, // Posição eixo horizontal
-        y: 80, // Posição eixo vertical
+        x: 100, // Posição eixo horizontal
+        y: 300, // Posição eixo vertical
     },
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
     platformCollisionBlocks, // Blocos de colisão das plataformas
@@ -207,14 +207,16 @@ const background = new Sprite({ // Cria uma nova instância do fundo do jogo
     imageSrc: '../img/background.png' // Fonte da imagem do fundo
 })
 
+const backgroundImageHeight = 432;
+
 const camera = {
     position: { // Posição da câmera (objeto com propriedades x e y)
         x: 0, 
-        y: 0, 
+        y: -backgroundImageHeight + scaledCanvas.height, 
     }, 
 }
 
-// Função definida para executar a animação no canvas: 
+// * Função definida para executar a animação no canvas: 
 function animate() {
     window.requestAnimationFrame(animate); // Chama a função animate novamente para criar um loop de animação
     // Estilo da janela canvas:
@@ -224,16 +226,17 @@ function animate() {
     // Configuração do canvas escalado:
     ctx.save(); // Salva o estado atual do canvas
     ctx.scale(4, 4) // Escala o canvas para aumentar a resolução
-    ctx.translate(camera.position.x, -background.image.height + scaledCanvas.height) // Translada o canvas para cima
+    ctx.translate(camera.position.x, camera.position.y) // Translada o canvas para cima
     background.update(); // Atualiza o fundo 
 
-    collisionBlocks.forEach((collisionBlock) => { // Loop para percorrer os blocos de colisão
-        collisionBlock.update(); // Atualiza cada bloco de colisão
-    })
+    // Desenha os blocos de colisão do canvas
+    // collisionBlocks.forEach((collisionBlock) => { // Loop para percorrer os blocos de colisão
+    //     collisionBlock.update(); // Atualiza cada bloco de colisão
+    // })
 
-    platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
-        block.update(); // Atualiza cada bloco de colisão
-    })
+    // platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
+    //     block.update(); // Atualiza cada bloco de colisão
+    // })
 
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
@@ -252,7 +255,6 @@ function animate() {
         player.shouldPanCameraToTheRight({ canvas, camera }); // Verifica se a câmera deve se mover para a direita
     }
     else if (player.velocity.y === 0) { // Se o jogador não estiver se movendo verticalmente
-
         if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a direita
             player.switchSprite('Idle'); // Muda a animação do jogador para "Idle"
         }
@@ -260,12 +262,14 @@ function animate() {
     }
 
     if (player.velocity.y < 0) { // Se o jogador estiver se movendo para cima
+        player.shouldPanCameraToDown({ camera, canvas }) // 
         if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a direita
             player.switchSprite('Jump'); // Muda a animação do jogador para "Jump"
         }
         else player.switchSprite('JumpLeft'); // Se a última direção do jogador foi para a esquerda, muda a animação do jogador para "JumpLeft"
     } 
     else if (player.velocity.y > 0) { // Se o jogador estiver se movendo para baixo
+        player.shouldPanCameraToUp({ camera, canvas }) // Verifica se a câmera deve se mover para cima
         if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a esquerda
             player.switchSprite('Fall'); // Muda a animação do jogador para "Fall"
         } 
@@ -275,10 +279,10 @@ function animate() {
     ctx.restore(); // Restaura o estado do canvas
 }
 
-// Inicia a animação
+// * Inicia a animação
 animate()
 
-// Adiciona um evento de teclado para mover o jogador:
+// * Adiciona um evento de teclado para mover o jogador:
 window.addEventListener('keydown', (event) => {
     switch (event.key) { // Verifica qual tecla foi pressionada
         case 'a': // Tecla 'a' pressionada
@@ -288,9 +292,7 @@ window.addEventListener('keydown', (event) => {
             keys.d.pressed = true; // Define a tecla 'd' como pressionada
             break;
         case 'w': // Tecla 'w' pressionada
-            if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
-                player.velocity.y = -6; // Define a velocidade para pular para cima
-            }
+            player.velocity.y = -4; // Define a velocidade para pular para cima
             break;
         case 'ArrowLeft': // Tecla 'ArrowLeft' pressionada
             keys.ArrowLeft.pressed = true; // Define a tecla 'ArrowLeft' como pressionada
@@ -299,14 +301,13 @@ window.addEventListener('keydown', (event) => {
             keys.ArrowRight.pressed = true; // Define a tecla 'ArrowRight' como pressionada
             break;
         case 'ArrowUp': // Tecla 'ArrowUp' pressionada
-            if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
-                player.velocity.y = -6; // Define a velocidade para pular para cima
-            }
+            player.velocity.y = -4; // Define a velocidade para pular para cima
             break;
     }
 
 });
 
+// * Adiciona um evento de teclado para parar o jogador:
 window.addEventListener('keyup', (event) => {
     switch (event.key) { // Verifica qual tecla não foi pressionada
         case 'a': // Tecla 'a' solta
