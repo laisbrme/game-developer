@@ -6,21 +6,78 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
+// Configuração da persona:
 const persona = {
-    attack1Src: '../img/persona/Attack1.png',
-    attack2Src: '../img/persona/Attack2.png',
-    attack3Src: '../img/persona/Attack3.png',
-    deathSrc: '../img/persona/Death.png',
-    fallSrc: '../img/persona/Fall.png',
-    fallLeftSrc: '../img/persona/FallLeft.png',
-    idleSrc: '../img/persona/Idle.png', 
-    idleLeftSrc: '../img/persona/IdleLeft.png',
-    jumpSrc: '../img/persona/Jump.png',
-    jumpLeftSrc: '../img/persona/JumpLeft.png',
-    runSrc: '../img/persona/Run.png',
-    runLeftSrc: '../img/persona/RunLeft.png',
-    takeHitSrc: '../img/persona/TakeHit.png',
-    takeHitWhiteSrc: '../img/persona/Take Hit - white silhouette.png',
+    attack1Position: {
+        src: '../img/persona/Attack1.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    attack2Position: {
+        src: '../img/persona/Attack2.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    attack3Position: {
+        src: '../img/persona/Attack3.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    deathPosition: {
+        src: '../img/persona/Death.png',
+        frameRate: 6,
+        frameBuffer: 3,
+    },
+    fallPosition: {
+        src: '../img/persona/Fall.png',
+        frameRate: 2,
+        frameBuffer: 3,
+    },
+    fallLeftPosition: {
+        src: '../img/persona/FallLeft.png',
+        frameRate: 2,
+        frameBuffer: 3,
+    },
+    idlePosition: {
+        src: '../img/persona/Idle.png',
+        frameRate: 8,
+        frameBuffer: 3,
+    },
+    idleLeftPosition: {
+        src: '../img/persona/IdleLeft.png',
+        frameRate: 8,
+        frameBuffer: 3,
+    },
+    jumpPosition: {
+        src: '../img/persona/Jump.png',
+        frameRate: 2,
+        frameBuffer: 3,
+    },
+    jumpLeftPosition: {
+        src: '../img/persona/JumpLeft.png',
+        frameRate: 2,
+        frameBuffer: 3,
+    },
+    runPosition: {
+        src: '../img/persona/Run.png',
+        frameRate: 8,
+        frameBuffer: 5,
+    },
+    runLeftPosition: {
+        src: '../img/persona/RunLeft.png',
+        frameRate: 8,
+        frameBuffer: 5,
+    },
+    takeHitPosition: {
+        src: '../img/persona/Take Hit.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    takeHitWhitePosition: {
+        src: '../img/persona/Take Hit - white silhouette.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
 }
 
 const scaledCanvas = {
@@ -68,7 +125,8 @@ platformCollisions2D.forEach((row, y) => {
                         x: x * 16, // Posição eixo horizontal
                         y: y * 16, // Posição eixo vertical
                     },
-                })
+                    // height: 4,
+        })
             )
         }
     })
@@ -83,8 +141,50 @@ const player = new Player({
         y: 80, // Posição eixo vertical
     },
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
-    imageSrc: persona.idleSrc, // Fonte da imagem do jogador
-    frameRate: 8, // Taxa de quadros do jogador
+    imageSrc: persona.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: persona.idlePosition.frameRate, // Taxa de quadros do jogador
+    animations: { // Animações do jogador
+        Idle: {
+            imageSrc: persona.idlePosition.src, // Fonte da imagem do jogador
+            frameRate: persona.idlePosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.idlePosition.frameRate, // Buffer de quadros do jogador
+        },
+        IdleLeft: {
+            imageSrc: persona.idleLeftPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.idleLeftPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        Run: {
+            imageSrc: persona.runPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.runPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.runPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        RunLeft: {
+            imageSrc: persona.runLeftPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.runLeftPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.runLeftPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        Jump: {
+            imageSrc: persona.jumpPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.jumpPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.jumpPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        JumpLeft: {
+            imageSrc: persona.jumpLeftPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.jumpLeftPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.jumpLeftPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        Fall: {
+            imageSrc: persona.fallPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.fallPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.fallPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+        FallLeft: {
+            imageSrc: persona.fallLeftPosition.src, // Fonte da imagem do jogador
+            frameRate: persona.fallLeftPosition.frameRate, // Taxa de quadros do jogador
+            frameBuffer: persona.fallLeftPosition.frameBuffer, // Buffer de quadros do jogador
+        },
+    }
 }); 
 
 const keys = {
@@ -116,8 +216,9 @@ function animate() {
     // Configuração do canvas escalado:
     ctx.save(); // Salva o estado atual do canvas
     ctx.scale(4, 4) // Escala o canvas para aumentar a resolução
-    ctx.translate(0, -background.image.height + scaledCanvas.height) // Translada o canvas para a posição (0, ?)
-    background.update(); // Atualiza o fundo
+    ctx.translate(0, -background.image.height + scaledCanvas.height) // Translada o canvas para cima
+    background.update(); // Atualiza o fundo 
+
     collisionBlocks.forEach((collisionBlock) => { // Loop para percorrer os blocos de colisão
         collisionBlock.update(); // Atualiza cada bloco de colisão
     })
@@ -129,8 +230,36 @@ function animate() {
     player.update(); // Atualiza a posição do jogador
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
-    if (keys.d.pressed || keys.ArrowRight.pressed) player.velocity.x = 1; // Move o jogador para a esquerda
-    else if (keys.a.pressed || keys.ArrowLeft.pressed) player.velocity.x = -1; // Move o jogador para a direita
+    if (keys.d.pressed || keys.ArrowRight.pressed) { 
+        player.switchSprite('Run'); // Muda a animação do jogador para "Run"
+        player.velocity.x = 2; // Move o jogador para a direita
+        player.lastDirection = 'right'; // Define a última direção do jogador como direita
+    }
+    else if (keys.a.pressed || keys.ArrowLeft.pressed) {
+        player.switchSprite('RunLeft'); // Muda a animação do jogador para "RunLeft"
+        player.velocity.x = -2; // Move o jogador para a esquerda
+        player.lastDirection = 'left'
+    }
+    else if (player.velocity.y === 0) { // Se o jogador não estiver se movendo verticalmente
+
+        if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a direita
+            player.switchSprite('Idle'); // Muda a animação do jogador para "Idle"
+        }
+        else player.switchSprite('IdleLeft'); // Se a última direção do jogador foi para a esquerda, muda a animação do jogador para "IdleLeft"
+    }
+
+    if (player.velocity.y < 0) { // Se o jogador estiver se movendo para cima
+        if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a direita
+            player.switchSprite('Jump'); // Muda a animação do jogador para "Jump"
+        }
+        else player.switchSprite('JumpLeft'); // Se a última direção do jogador foi para a esquerda, muda a animação do jogador para "JumpLeft"
+    } 
+    else if (player.velocity.y > 0) { // Se o jogador estiver se movendo para baixo
+        if (player.lastDirection === 'right') { // Se a última direção do jogador foi para a esquerda
+            player.switchSprite('Fall'); // Muda a animação do jogador para "Fall"
+        } 
+        else player.switchSprite('FallLeft'); // Se a última direção do jogador foi para a direita, muda a animação do jogador para "FallLeft"
+    }
 
     ctx.restore(); // Restaura o estado do canvas
 }
@@ -148,7 +277,9 @@ window.addEventListener('keydown', (event) => {
             keys.d.pressed = true; // Define a tecla 'd' como pressionada
             break;
         case 'w': // Tecla 'w' pressionada
-            player.velocity.y = -10; // Move o jogador para cima
+            if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
+                player.velocity.y = -8; // Define a velocidade para pular para cima
+            }
             break;
         case 'ArrowLeft': // Tecla 'ArrowLeft' pressionada
             keys.ArrowLeft.pressed = true; // Define a tecla 'ArrowLeft' como pressionada
@@ -157,7 +288,9 @@ window.addEventListener('keydown', (event) => {
             keys.ArrowRight.pressed = true; // Define a tecla 'ArrowRight' como pressionada
             break;
         case 'ArrowUp': // Tecla 'ArrowUp' pressionada
-            player.velocity.y = -10; // Move o jogador para cima
+            if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
+                player.velocity.y = -8; // Define a velocidade para pular para cima
+            }
             break;
     }
 
