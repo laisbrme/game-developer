@@ -29,17 +29,27 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         }
 
         this.animations = animations // Animações do jogador (passadas como argumento)
+        this.lastDirection = 'right'; // Define a última direção do jogador como direita (padrão)
 
         for(let key in this.animations) { // Para cada animação do jogador
             const image = new Image(); // Cria uma nova imagem
             image.src = this.animations[key].imageSrc; // Define a fonte da imagem
 
             this.animations[key].image = image; // Atribui a imagem à animação correspondente
-            this.lastDirection = 'right'; // Define a última direção do jogador como direita (padrão)
+        }
+
+        this.camerabox = { // Caixa da câmera do jogador (para limitar a área de visão)
+            position: {
+                x: this.position.x, // Posição horizontal referente ao do jogador
+                y: this.position.y, // Posição vertical referente ao do jogador
+            },
+            width: 200, // Largura da caixa da câmera
+            height: 80, // Altura da caixa da câmera
         }
     } 
 
-    switchSprite(key) { // Método para alternar entre as animações do jogador
+    // Método para alternar entre as animações do jogador:
+    switchSprite(key) { 
         if (this.image === this.animations[key].image || !this.loaded) return; // Se a imagem atual do jogador for a mesma da animação correspondente, não faz nada
         
         this.currentFrame = 0; // Reseta o quadro atual para 0 (início da animação)
@@ -48,10 +58,62 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         this.frameRate = this.animations[key].frameRate; 
     }
 
+    // Método para atualizar a posição da caixa da câmera do jogador:
+    updateCamerabox() { 
+        this.camerabox = { // Caixa da câmera do jogador (para limitar a área de visão)
+            position: {
+                x: this.position.x - 50, // Posição horizontal referente ao do jogador
+                y: this.position.y, // Posição vertical referente ao do jogador
+            },
+            width: 200, // Largura da caixa da câmera
+            height: 80, // Altura da caixa da câmera
+        }
+    }
+
+    // Método para verificar se a câmera deve se mover para a esquerda:
+    shouldPanCameraToTheLeft({ canvas, camera }) { // Método para verificar se a câmera deve se mover para a esquerda
+        const cameeraboxRightSide = this.camerabox.position.x + this.camerabox.width; // Posição esquerda da caixa da câmera
+        const scaledDownCanvasWidth = canvas.width / 4; // Largura do canvas reduzida
+
+        if (cameeraboxRightSide >= 576) return // Se a posição esquerda da caixa da câmera for maior ou igual a 576, não faz nada
+
+        if (cameeraboxRightSide >= scaledDownCanvasWidth + Math.abs(camera.position.x)) { // Se a posição esquerda da caixa da câmera for maior ou igual à largura do canvas
+            camera.position.x -= this.velocity.x; // Move a câmera para a esquerda
+        }
+    }
+
+    // Método para verificar colisões horizontais com o canvas:
+    checkForHorizontalCanvasCollision() { 
+        if(
+            this.hitbox.position.x + this.hitbox.width + this.velocity.x >= 576 ||
+            this.hitbox.position.x + this.velocity.x <= 0
+        ) { // Verifica se o hitbox do jogador colide com as bordas do canvas
+            this.velocity.x = 0; // Para a velocidade horizontal do jogador
+        }
+    }
+
+    // Método para verificar se a câmera deve se mover para a direita:
+    shouldPanCameraToTheRight({ canvas, camera }) { // Método para verificar se a câmera deve se mover para a direita
+        if (this.camerabox.position.x <= 0) return; // Se a posição direita da caixa da câmera for menor ou igual a 0, não faz nada
+
+        if (this.camerabox.position.x <= Math.abs(camera.position.x)) { // Se a posição direita da caixa da câmera for menor ou igual à posição da câmera
+            camera.position.x -= this.velocity.x; // Move a câmera para a direita
+        }
+    }
+
     // Método para atualizar a posição do jogador:
     update() {
         this.updateFrames(); // Atualiza os quadros do jogador
         this.updateHitbox(); // Atualiza a caixa de colisão do jogador
+        this.updateCamerabox(); // Atualiza a caixa da câmera do jogador
+
+        ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+        ctx.fillRect(
+          this.camerabox.position.x,
+          this.camerabox.position.y,
+          this.camerabox.width,
+          this.camerabox.height
+        );
 
         // Desenha a imagem de fundo do jogador:
         // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)'

@@ -207,6 +207,13 @@ const background = new Sprite({ // Cria uma nova instância do fundo do jogo
     imageSrc: '../img/background.png' // Fonte da imagem do fundo
 })
 
+const camera = {
+    position: { // Posição da câmera (objeto com propriedades x e y)
+        x: 0, 
+        y: 0, 
+    }, 
+}
+
 // Função definida para executar a animação no canvas: 
 function animate() {
     window.requestAnimationFrame(animate); // Chama a função animate novamente para criar um loop de animação
@@ -217,7 +224,7 @@ function animate() {
     // Configuração do canvas escalado:
     ctx.save(); // Salva o estado atual do canvas
     ctx.scale(4, 4) // Escala o canvas para aumentar a resolução
-    ctx.translate(0, -background.image.height + scaledCanvas.height) // Translada o canvas para cima
+    ctx.translate(camera.position.x, -background.image.height + scaledCanvas.height) // Translada o canvas para cima
     background.update(); // Atualiza o fundo 
 
     collisionBlocks.forEach((collisionBlock) => { // Loop para percorrer os blocos de colisão
@@ -228,6 +235,7 @@ function animate() {
         block.update(); // Atualiza cada bloco de colisão
     })
 
+    player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
@@ -235,11 +243,13 @@ function animate() {
         player.switchSprite('Run'); // Muda a animação do jogador para "Run"
         player.velocity.x = 2; // Move o jogador para a direita
         player.lastDirection = 'right'; // Define a última direção do jogador como direita
+        player.shouldPanCameraToTheLeft({ canvas, camera }); // Verifica se a câmera deve se mover para a esquerda
     }
     else if (keys.a.pressed || keys.ArrowLeft.pressed) {
         player.switchSprite('RunLeft'); // Muda a animação do jogador para "RunLeft"
         player.velocity.x = -2; // Move o jogador para a esquerda
         player.lastDirection = 'left'
+        player.shouldPanCameraToTheRight({ canvas, camera }); // Verifica se a câmera deve se mover para a direita
     }
     else if (player.velocity.y === 0) { // Se o jogador não estiver se movendo verticalmente
 
