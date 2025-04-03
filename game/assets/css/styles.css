@@ -61,6 +61,16 @@ body {
     padding-top: 6rem;
 }
 
+.backgroundMenu {
+    position: absolute; /* Permite posicionar elementos sobre a imagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Define a camada da imagem */
+    object-fit: cover; /* Ajusta a imagem para cobrir o contêiner */
+}
+
 /* Estilos da página Game  */
 .container-game {
     display: flex;
@@ -117,14 +127,17 @@ p span {
 }
 
 /* Estilo dos botões Index */
-.button-box{
+#button-box{
     display: flex;
     height: 3rem;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    position: sticky;
+    position: relative;
     flex-shrink: 0;
+    margin-top: 5rem;
+    z-index: 2;
+    flex-direction: row;
 }
 
 /* Estilo geral dos botões */
@@ -170,53 +183,7 @@ p span {
     transform: scale(1.05);
 }
 
-/* Configurações dos elementos do Index */
-.clemente{
-    width: 150px;
-    position: absolute;
-    bottom: 6rem;
-}
-
-.ground{
-    width: 100%;
-    position: absolute;
-    bottom: -2rem;
-}
-
-.clouds-container {
-    position: absolute;
-    top: 1rem;
-    width: 200vw; /* O dobro da largura da tela */
-    display: flex;
-}
-
-.clouds {
-    width: 100vw; /* Cada imagem ocupa a largura da tela */
-}
-
-@keyframes clouds-animation {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100vw);
-    }
-}
-
-.clouds-container {
-    animation: clouds-animation 20s linear infinite;
-}
-
-@keyframes trees-animation {
-    from {
-        right: -80px;
-    }
-
-    to {
-        right: 100%;
-    }
-}
-
+/* Estilo da janela canvas */
 canvas {
     position: absolute;
     top: 10rem;
