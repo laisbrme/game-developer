@@ -3,6 +3,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
     constructor({ // O construtor da classe Player recebe um objeto com as propriedades necessárias para inicializar o jogador.
         position, 
         collisionBlocks, 
+        platformCollisionBlocks, 
         imageSrc, 
         frameRate, 
         scale = 0.5,
@@ -17,6 +18,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         }
 
         this.collisionBlocks = collisionBlocks; // Blocos de colisão do chão (passados como argumento)
+        this.platformCollisionBlocks = platformCollisionBlocks; // Blocos de colisão do chão (passados como argumento)
         this.hitbox = {
             position: {
                 x: this.position.x, // Posição horizontal referente ao do jogador
@@ -156,6 +158,29 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
                     this.position.y = collisionBlock.position.y + collisionBlock.height - offset + 0.01; // Move o jogador para cima do bloco de colisão
                     break
                 }
+            }
+        }
+
+        // Verifica colisões com plataformas:
+        for(let i = 0; i < this.platformCollisionBlocks.length; i++) {
+            const platformCollisionBlock = this.platformCollisionBlocks[i]; // Pega o bloco de colisão atual
+
+            if (
+                plataformCollision({
+                    object1: this.hitbox, // O hitbox do jogador
+                    object2: platformCollisionBlock // O bloco de colisão da plataforma
+                })
+            ) {
+                if (this.velocity.y > 0) { // Verifica se o jogador está caindo
+                    this.velocity.y = 0; // Para a velocidade vertical do jogador
+
+                    const offset = this.hitbox.position.y - this.position.y + this.hitbox.height; // Calcula o deslocamento do hitbox em relação à posição do jogador
+
+                    this.position.y = platformCollisionBlock.position.y - offset - 0.01; // Move o jogador para cima do bloco de colisão da plataforma
+                    break
+                }
+
+                
             }
         }
     }

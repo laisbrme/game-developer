@@ -1,9 +1,9 @@
 // Definição de blocos de colisão (imagens) para o jogo:
 class CollisionBlock {
-    constructor({ position }) {
+    constructor({ position, height = 16 }) { // Construtor da classe CollisionBlock
         this.position = position; // Posição do sprite (objeto com propriedades x e y)
         this.width = 16; // Largura do bloco de colisão
-        this.height = 16; // Altura do bloco de colisão
+        this.height = height; // Altura do bloco de colisão
     }
 
     draw() { // Método para desenhar o bloco de colisão no canvas

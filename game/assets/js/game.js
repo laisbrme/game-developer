@@ -125,14 +125,14 @@ platformCollisions2D.forEach((row, y) => {
                         x: x * 16, // Posição eixo horizontal
                         y: y * 16, // Posição eixo vertical
                     },
-                    // height: 4,
-        })
+                    height: 4, // Altura do bloco de colisão
+                })
             )
         }
     })
 })
 
-const gravity = 0.5; // Definição da gravidade (constante que afeta a velocidade do jogador)
+const gravity = 0.3 // Definição da gravidade (constante que afeta a velocidade do jogador)
 
 // Cria uma nova instância do jogador:
 const player = new Player({
@@ -141,6 +141,7 @@ const player = new Player({
         y: 80, // Posição eixo vertical
     },
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
     imageSrc: persona.idlePosition.src, // Fonte da imagem do jogador
     frameRate: persona.idlePosition.frameRate, // Taxa de quadros do jogador
     animations: { // Animações do jogador
@@ -278,7 +279,7 @@ window.addEventListener('keydown', (event) => {
             break;
         case 'w': // Tecla 'w' pressionada
             if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
-                player.velocity.y = -8; // Define a velocidade para pular para cima
+                player.velocity.y = -6; // Define a velocidade para pular para cima
             }
             break;
         case 'ArrowLeft': // Tecla 'ArrowLeft' pressionada
@@ -289,7 +290,7 @@ window.addEventListener('keydown', (event) => {
             break;
         case 'ArrowUp': // Tecla 'ArrowUp' pressionada
             if (player.velocity.y === 0) { // Permite o pulo apenas se o jogador não estiver no ar
-                player.velocity.y = -8; // Define a velocidade para pular para cima
+                player.velocity.y = -6; // Define a velocidade para pular para cima
             }
             break;
     }
