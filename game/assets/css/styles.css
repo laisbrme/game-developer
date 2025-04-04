@@ -15,9 +15,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(#87ceeb, #e0f6ff);
     text-align: center;
     display: flex;
+    background: linear-gradient(#87ceeb, #e0f6ff);
 }
 
 /* Estilo do cabeçalho */
@@ -61,7 +61,7 @@ body {
     padding-top: 6rem;
 }
 
-.backgroundMenu {
+.backgroundImg {
     position: absolute; /* Permite posicionar elementos sobre a imagem */
     top: 0;
     left: 0;
@@ -83,17 +83,8 @@ body {
     padding-top: 0rem;
 }
 
-/* Estilos da página Crédito  */
-.container-credito {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    flex-grow: 1;
-    padding-top: 3rem;
-}
-
-/* Estilos da página História  */
+/* Estilos páginas Créditos e História  */
+.container-credito,
 .container-historia {
     display: flex;
     flex-direction: column;
@@ -101,29 +92,83 @@ body {
     align-items: center;
     flex-grow: 1;
     padding-top: 3rem;
+    background-image: url('../img/clouds.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    width: 100%;
 }
 
-p {
+/* Texto da página história */
+.texto {
+    position: relative;
+    z-index: 2; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.texto h1 {
+    margin-bottom: 3rem;
+}
+
+.texto p {
     font-size: 1.5rem;
     color: #000;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-left: 12rem;
     margin-right: 12rem;
+    background-color: rgba(255, 255, 255, 0.3); 
+    padding: 10px; 
+    border-radius: 10px;
 }
 
-p span {
+.texto span {
     color: #EE5151;
+}
+
+/* Texto da página créditos */
+.descriotionList {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: space-around;
+    padding-left: 20rem;
+    padding-right: 20rem;
+}
+
+.descriotionList img {
+    width: 150px;
+    height: 150px;
+    margin-top: 1rem;
+    border-radius: 1rem;
+}
+
+.descriotionList p {
+    font-size: 1.5rem;
+    color: #000;
+    text-align: center;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: rgba(255, 255, 255, 0.3); 
+    padding: 10px; 
+    border-radius: 10px;
 }
 
 /* Estilo dos botões das páginas */
 #page-button-box {
+    position: relative;
+    z-index: 2; 
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
     flex-grow: 1;
     margin-top: 0;
+    justify-content: center;
 }
 
 /* Estilo dos botões Index */
@@ -137,6 +182,7 @@ p span {
     flex-shrink: 0;
     margin-top: 5rem;
     z-index: 2;
+    margin-top: 20rem;
     flex-direction: row;
 }
 
@@ -150,7 +196,6 @@ p span {
     box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
-    margin-top: 25rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
