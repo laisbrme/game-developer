@@ -9,24 +9,14 @@ canvas.height = 576;
 // * Configuração da persona:
 const persona = {
     attack1Position: {
-        src: '../img/persona/Attack1.png',
-        frameRate: 4,
-        frameBuffer: 3,
-    },
-    attack2Position: {
-        src: '../img/persona/Attack2.png',
-        frameRate: 4,
-        frameBuffer: 3,
-    },
-    attack3Position: {
-        src: '../img/persona/Attack3.png',
+        src: '../img/persona/Attack.png',
         frameRate: 4,
         frameBuffer: 3,
     },
     deathPosition: {
         src: '../img/persona/Death.png',
-        frameRate: 6,
-        frameBuffer: 3,
+        frameRate: 1,
+        frameBuffer: 1,
     },
     fallPosition: {
         src: '../img/persona/Fall.png',
@@ -40,13 +30,13 @@ const persona = {
     },
     idlePosition: {
         src: '../img/persona/Idle.png',
-        frameRate: 8,
-        frameBuffer: 3,
+        frameRate: 1,
+        frameBuffer: 1,
     },
     idleLeftPosition: {
         src: '../img/persona/IdleLeft.png',
-        frameRate: 8,
-        frameBuffer: 3,
+        frameRate: 1,
+        frameBuffer: 1,
     },
     jumpPosition: {
         src: '../img/persona/Jump.png',
@@ -60,23 +50,13 @@ const persona = {
     },
     runPosition: {
         src: '../img/persona/Run.png',
-        frameRate: 8,
+        frameRate: 3,
         frameBuffer: 5,
     },
     runLeftPosition: {
         src: '../img/persona/RunLeft.png',
-        frameRate: 8,
+        frameRate: 3,
         frameBuffer: 5,
-    },
-    takeHitPosition: {
-        src: '../img/persona/Take Hit.png',
-        frameRate: 4,
-        frameBuffer: 3,
-    },
-    takeHitWhitePosition: {
-        src: '../img/persona/Take Hit - white silhouette.png',
-        frameRate: 4,
-        frameBuffer: 3,
     },
 }
 
