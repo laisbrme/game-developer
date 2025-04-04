@@ -1,3 +1,5 @@
+![CHICKENS in a Dangerous Forest Cover](game/assets/img/capa-2.png)
+
 # 🐔 CHICKENS in a Dangerous Forest
 CHICKENS in a Dangerous Forest é um jogo eletrônico para navegadores.
 
@@ -7,7 +9,7 @@ O objetivo do projeto é criar um jogo onde o jogador possa guiar um personagem 
 
 ## Jogabilidade
 
-CHICKENS in a Dangerous Forest é um jogo de plataforma para 1 jogador. O jogador controla um galo, utilizando as setas do teclado, e deve evitar colidir com os inimigos. Se o galo tocar em um inimigo, o jogo termina.
+CHICKENS in a Dangerous Forest é um jogo de plataforma para um jogador. O jogador controla um galo, utilizando as setas do teclado, e deve evitar colidir com os inimigos. Se o galo tocar em um inimigo, o jogo termina.
 
 **Controles:**
 
@@ -47,11 +49,14 @@ A pontuação é acumulada através da coleta de itens especiais:
 É possível executar o jogo de duas maneiras:
 
 1.  Pelo GitHub:
-1.1 Clone o repositório.
-1.2 Abra o arquivo `index.html` no seu navegador.
+
+    1.1 Clone o repositório.
+
+    1.2 Abra o arquivo `index.html` no seu navegador.
 
 2.  Pelo Link do Deploy:
-2.1 [CHICKENS]()
+
+    2.1 [CHICKENS]()
 
 ## Roadmap
 
@@ -70,14 +75,22 @@ O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, desta
 
 ## Contato
 
-\<a href="[https://github.com/laisbrme">\<img](https://github.com/laisbrme"><img) src="[https://avatars.githubusercontent.com/u/52614305?s=64&v=4](https://avatars.githubusercontent.com/u/52614305?s=64\&v=4)" height="50" style="border-radius: 50px;" /> \</a>
-*   [Laís Brum] - [eng.laisbm@gmail.com](mailto:eng.laisbm@gmail.com)
+**Laís Brum**
+
+<div> 
+  <a href = "mailto: eng.laisbm@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+  <a href="https://www.linkedin.com/in/lais-brum-menezes/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+</div>
+
 
 ## Licença
 
-Este projeto está licenciado sob a licença [Nome da Licença] - veja o arquivo `LICENSE.md` para mais detalhes.
+O código deste projeto está licenciado sob a [Licença MIT](LICENSE.md).
 
-/*
+As imagens e outros ativos criativos estão licenciados sob a [Licença Creative Commons Atribuição-NãoComercial 4.0 Internacional (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+
+
+<!-- 
     TODO: The Essentials:
     - [x] Project setup
     - [x] Gravity
@@ -92,5 +105,5 @@ Este projeto está licenciado sob a licença [Nome da Licença] - veja o arquivo
     - [x] Horizontal camera panning
     - [x] Vertical camera panning
     - [ ] Enemys
-    - [ ] 
-*/
+    - [ ]  
+-->
