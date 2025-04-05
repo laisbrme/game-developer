@@ -6,6 +6,26 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
+let isGameOver = false;  // Variável de controle para verificar se o jogo terminou
+
+const eagle = {
+    idlePosition: {
+        src: '../img/eagle.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    idleLeftPosition: {
+        src: '../img/eagleLeft.png',
+        frameRate: 4,
+        frameBuffer: 3,
+    },
+    deathPosition: {
+        src: '../img/enemy-death.png',
+        frameRate: 6,
+        frameBuffer: 3,
+    },
+}
+
 // * Configuração da persona:
 const persona = {
     attack1Position: {
@@ -114,10 +134,42 @@ platformCollisions2D.forEach((row, y) => {
 
 const gravity = 0.1 // Definição da gravidade (constante que afeta a velocidade do jogador)
 
+// * Lista de inimigos
+const enemies = [];
+
+// * Cria uma nova instância do inimigo:
+enemies.push(new Enemy({
+    position: {
+        x: 25, // Posição eixo horizontal
+        y: 110, // Posição eixo vertical
+    },
+    imageSrc: eagle.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: eagle.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: eagle.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: eagle.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: eagle.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: eagle.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: eagle.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: eagle.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: eagle.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: eagle.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: eagle.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
 // * Cria uma nova instância do jogador:
 const player = new Player({
     position: {
-        x: 100, // Posição eixo horizontal
+        x: 0, // Posição eixo horizontal
         y: 300, // Posição eixo vertical
     },
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
@@ -198,6 +250,8 @@ const camera = {
 
 // * Função definida para executar a animação no canvas: 
 function animate() {
+    if (isGameOver) return; // Interrompe o loop de animação se o jogo terminou
+
     window.requestAnimationFrame(animate); // Chama a função animate novamente para criar um loop de animação
     // Estilo da janela canvas:
     ctx.fillStyle = 'white';
@@ -217,9 +271,13 @@ function animate() {
     // platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
     //     block.update(); // Atualiza cada bloco de colisão
     // })
+    enemies.forEach((enemy) => {
+        enemy.update();
+    });
 
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
+    player.checkForEnemyCollision(enemies);
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) { 
@@ -259,49 +317,32 @@ function animate() {
     ctx.restore(); // Restaura o estado do canvas
 }
 
+// * Função para definir o fim do jogo
+function gameOver() {
+    isGameOver = true; // Define o estado do jogo como terminado
+    const imgGameOver = new Image(); // Cria uma nova imagem para o game over
+    const imgWidth = 512; // Largura da imagem
+    const imgHeight = 300; // Altura da imagem
+    imgGameOver.src = '../img/game-over.jpg'; // Define a fonte da imagem do game over
+
+    imgGameOver.onload = () => {
+        // Quando a imagem for carregada, desenha no centro do canvas
+        ctx.fillStyle = 'black'; // Preenche o fundo com preto
+        ctx.fillRect(0, 0, canvas.width, canvas.height); // Preenche o canvas com a cor preta
+
+        
+        const x = (canvas.width - imgWidth) / 2; // Calcula a posição X para centralizar
+        const y = (canvas.height - imgHeight) / 2; // Calcula a posição Y para centralizar
+
+        ctx.drawImage(imgGameOver, x, y, imgWidth, imgHeight); // Desenha a imagem no canvas
+    };
+}
+
+// * Função para rejogar após o game over:
+function restartGame() {
+    window.location.reload(); // Reinicia o jogo recarregando a página
+}
+
 // * Inicia a animação
 animate()
 
-// * Adiciona um evento de teclado para mover o jogador:
-window.addEventListener('keydown', (event) => {
-    switch (event.key) { // Verifica qual tecla foi pressionada
-        case 'a': // Tecla 'a' pressionada
-            keys.a.pressed = true; // Define a tecla 'a' como pressionada
-            break;
-        case 'd': // Tecla 'd' pressionada
-            keys.d.pressed = true; // Define a tecla 'd' como pressionada
-            break;
-        case 'w': // Tecla 'w' pressionada
-            player.velocity.y = -4; // Define a velocidade para pular para cima
-            break;
-        case 'ArrowLeft': // Tecla 'ArrowLeft' pressionada
-            keys.ArrowLeft.pressed = true; // Define a tecla 'ArrowLeft' como pressionada
-            break;
-        case 'ArrowRight': // Tecla 'ArrowRight' pressionada
-            keys.ArrowRight.pressed = true; // Define a tecla 'ArrowRight' como pressionada
-            break;
-        case 'ArrowUp': // Tecla 'ArrowUp' pressionada
-            player.velocity.y = -4; // Define a velocidade para pular para cima
-            break;
-    }
-
-});
-
-// * Adiciona um evento de teclado para parar o jogador:
-window.addEventListener('keyup', (event) => {
-    switch (event.key) { // Verifica qual tecla não foi pressionada
-        case 'a': // Tecla 'a' solta
-            keys.a.pressed = false; // Define a tecla 'a' como não pressionada
-            break;
-        case 'd': // Tecla 'd' solta
-            keys.d.pressed = false; // Define a tecla 'd' como não pressionada
-            break;
-        case 'ArrowLeft': // Tecla 'ArrowLeft' solta
-            keys.ArrowLeft.pressed = false; // Define a tecla 'ArrowLeft' como não pressionada
-            break;
-        case 'ArrowRight': // Tecla 'ArrowRight' solta
-            keys.ArrowRight.pressed = false; // Define a tecla 'ArrowRight' como não pressionada
-            break;
-    }
-
-});
