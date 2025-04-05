@@ -18,7 +18,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         }
 
         this.collisionBlocks = collisionBlocks; // Blocos de colisão do chão (passados como argumento)
-        this.platformCollisionBlocks = platformCollisionBlocks; // Blocos de colisão do chão (passados como argumento)
+        this.platformCollisionBlocks = platformCollisionBlocks; // Blocos de colisão doa plataforma (passados como argumento)
         this.hitbox = {
             position: {
                 x: this.position.x, // Posição horizontal referente ao do jogador
@@ -73,7 +73,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
     // * Método para verificar colisões horizontais com o canvas:
     checkForHorizontalCanvasCollision() { 
         if(
-            this.hitbox.position.x + this.hitbox.width + this.velocity.x >= 576 ||
+            this.hitbox.position.x + this.hitbox.width + this.velocity.x >= canvas.height ||
             this.hitbox.position.x + this.velocity.x <= 0
         ) { // Verifica se o hitbox do jogador colide com as bordas do canvas
             this.velocity.x = 0; // Para a velocidade horizontal do jogador
@@ -85,7 +85,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         const cameraboxRightSide = this.camerabox.position.x + this.camerabox.width; // Posição esquerda da caixa da câmera
         const scaledDownCanvasWidth = canvas.width / 4; // Largura do canvas reduzida
 
-        if (cameraboxRightSide >= 576) return // Se a posição esquerda da caixa da câmera for maior ou igual a 576, não faz nada
+        if (cameraboxRightSide >= canvas.height) return // Se a posição esquerda da caixa da câmera for maior ou igual a 576, não faz nada
 
         if (cameraboxRightSide >= scaledDownCanvasWidth + Math.abs(camera.position.x)) { // Se a posição esquerda da caixa da câmera for maior ou igual à largura do canvas
             camera.position.x -= this.velocity.x; // Move a câmera para a esquerda
@@ -174,11 +174,11 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
     updateHitbox() { 
         this.hitbox = {
             position: {
-                x: this.position.x + 35, // Posição horizontal referente ao do jogador
-                y: this.position.y + 26, // Posição vertical referente ao do jogador
+                x: this.position.x + 32, // Posição horizontal referente ao do jogador
+                y: this.position.y + 30, // Posição vertical referente ao do jogador
             },
-            width: 14, // Largura do hitbox
-            height: 27, // Altura do hitbox
+            width: 15, // Largura do hitbox
+            height: 25, // Altura do hitbox
         }
     }
 
