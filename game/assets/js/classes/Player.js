@@ -274,4 +274,28 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
             }
         }
     }
+
+    // * Método para verificar colisões com o inimigo:
+    checkForEnemyCollision(enemies) {
+        for (let i = 0; i < enemies.length; i++) {
+            const enemy = enemies[i];
+    
+            if (
+                collision({
+                    object1: this.hitbox, // O hitbox do jogador
+                    object2: enemy.hitbox // O hitbox do inimigo
+                })
+            ) {
+                if (this.velocity.y > 0 && // Colisão de cima para baixo
+                    this.position.y + this.hitbox.height <= enemy.hitbox.position.y + enemy.hitbox.height / 2) {
+                    this.velocity.y = -4; // Rebote do jogador
+                    enemy.destroy(enemies, i) // Executa o método destroy do inimigo
+                    break;
+                } else { // Colisão horizontal ou de baixo para cima
+                    gameOver(); // Executa a função gameOver
+                    break;
+                }
+            }
+        }
+    }
 }
