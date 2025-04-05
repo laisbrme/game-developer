@@ -41,3 +41,13 @@ window.addEventListener('keyup', (event) => {
   }
 
 });
+
+// * Adiciona um evento de teclado para reiniciar o jogo:
+window.addEventListener('keydown', (event) => {
+    if (isGameOver) {
+        if (event.key === 'r' || event.key === 'R') {
+
+            restartGame();
+        }
+    }
+});
