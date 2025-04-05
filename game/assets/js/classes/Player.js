@@ -8,7 +8,6 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         frameRate, 
         scale = 0.5,
         animations,
-        enemyCollision,
     }) {
         // Propriedades do jogador individual terá dentro de si:
         super({ imageSrc, frameRate, scale }) // Chama o construtor da classe pai (Sprite) para inicializar a imagem do jogador
@@ -18,9 +17,8 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
             y: 1, // Velocidade eixo vertical
         }
 
-        this.enemyCollision = enemyCollision;  // Colisão com o inimigo
         this.collisionBlocks = collisionBlocks; // Blocos de colisão do chão (passados como argumento)
-        this.platformCollisionBlocks = platformCollisionBlocks; // Blocos de colisão da plataforma (passados como argumento)
+        this.platformCollisionBlocks = platformCollisionBlocks; // Blocos de colisão do chão (passados como argumento)
         this.hitbox = {
             position: {
                 x: this.position.x, // Posição horizontal referente ao do jogador
@@ -75,7 +73,7 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
     // * Método para verificar colisões horizontais com o canvas:
     checkForHorizontalCanvasCollision() { 
         if(
-            this.hitbox.position.x + this.hitbox.width + this.velocity.x >= canvas.height ||
+            this.hitbox.position.x + this.hitbox.width + this.velocity.x >= 576 ||
             this.hitbox.position.x + this.velocity.x <= 0
         ) { // Verifica se o hitbox do jogador colide com as bordas do canvas
             this.velocity.x = 0; // Para a velocidade horizontal do jogador
@@ -87,9 +85,8 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
         const cameraboxRightSide = this.camerabox.position.x + this.camerabox.width; // Posição esquerda da caixa da câmera
         const scaledDownCanvasWidth = canvas.width / 4; // Largura do canvas reduzida
 
-        if (cameraboxRightSide >= canvas.height) return; // Se a posição esquerda da caixa da câmera for maior ou igual à altura do canvas, não faz nada
-        
-         // Se a posição esquerda da caixa da câmera for maior ou igual a 576, não faz nada
+        if (cameraboxRightSide >= 576) return // Se a posição esquerda da caixa da câmera for maior ou igual a 576, não faz nada
+
         if (cameraboxRightSide >= scaledDownCanvasWidth + Math.abs(camera.position.x)) { // Se a posição esquerda da caixa da câmera for maior ou igual à largura do canvas
             camera.position.x -= this.velocity.x; // Move a câmera para a esquerda
         }
@@ -177,11 +174,11 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
     updateHitbox() { 
         this.hitbox = {
             position: {
-                x: this.position.x + 32, // Posição horizontal referente ao do jogador
-                y: this.position.y + 30, // Posição vertical referente ao do jogador
+                x: this.position.x + 35, // Posição horizontal referente ao do jogador
+                y: this.position.y + 26, // Posição vertical referente ao do jogador
             },
-            width: 15, // Largura do hitbox
-            height: 25, // Altura do hitbox
+            width: 14, // Largura do hitbox
+            height: 27, // Altura do hitbox
         }
     }
 
@@ -274,29 +271,6 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
                 }
 
                 
-            }
-        }
-    }
-    
-    checkForEnemyCollision(enemies) {
-        for (let i = 0; i < enemies.length; i++) {
-            const enemy = enemies[i];
-    
-            if (
-                collision({
-                    object1: this.hitbox, // O hitbox do jogador
-                    object2: enemy.hitbox // O hitbox do inimigo
-                })
-            ) {
-                if (this.velocity.y > 0 && // Colisão de cima para baixo
-                    this.position.y + this.hitbox.height <= enemy.hitbox.position.y + enemy.hitbox.height / 2) {
-                    this.velocity.y = -4; // Rebote do jogador
-                    enemy.destroy(enemies, i) // Executa o método destroy do inimigo
-                    break;
-                } else { // Colisão horizontal ou de baixo para cima
-                    gameOver(); // Executa a função gameOver
-                    break;
-                }
             }
         }
     }
