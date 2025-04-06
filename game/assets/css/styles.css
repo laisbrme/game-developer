@@ -106,10 +106,17 @@ body {
     z-index: 2; 
     width: 100%;
     box-sizing: border-box;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .texto h1 {
-    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.texto h2 {
+    font-size: 1.5rem;
 }
 
 .texto p {
