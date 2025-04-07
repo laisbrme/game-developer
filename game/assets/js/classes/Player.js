@@ -298,4 +298,27 @@ class Player extends Sprite { // O jogador é uma extensão da classe Sprite, qu
             }
         }
     }
+
+    // * Método para verificar colisões com o pintinho:
+    checkForChickCollision(chicks) {
+        for (let i = 0; i < chicks.length; i++) {
+            const chick = chicks[i];
+    
+            if (
+                collision({
+                    object1: this.hitbox, // O hitbox do jogador
+                    object2: chick.hitbox // O hitbox do inimigo
+                })
+            ) {
+                if ((this.velocity.y > 0 || this.velocity.y < 0 || this.velocity.x > 0 || this.velocity.x < 0)&& // Colisão de todos os lados
+                    this.position.y + this.hitbox.height <= chick.hitbox.position.y + chick.hitbox.height / 2) {
+                    this.velocity.y = 0; // Rebote do jogador
+                    chick.destroy(chicks, i) // Executa o método destroy do inimigo
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
 }
