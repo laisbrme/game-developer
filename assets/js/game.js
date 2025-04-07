@@ -887,7 +887,7 @@ function restartGame() {
 
 // * Função para voltar ao menu principal: 
 function backToMenu() {
-    window.location.href = '/game/index.html'; // Redireciona para a página inicial
+    window.location.href = '/index.html'; // Redireciona para a página inicial
 }
 
 // * Inicia a animação

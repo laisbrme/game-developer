@@ -1,4 +1,4 @@
-![CHICKENS in a Dangerous Forest Cover](game/assets/img/GitHub%20Repo%20Card.png)
+![CHICKENS in a Dangerous Forest Cover](assets/img/GitHub%20Repo%20Card.png)
 
 # 🐔 CHICKENS in a Dangerous Forest
 CHICKENS in a Dangerous Forest é um jogo eletrônico para navegadores.
