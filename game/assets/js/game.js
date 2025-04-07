@@ -63,6 +63,20 @@ const maria = {
     },
 }
 
+// * Configuração da egg:
+const egg = {
+    idlePosition: {
+        src: '../img/ovo.png',
+        frameRate: 1,
+        frameBuffer: 1,
+    },
+    rescuePosition: {
+        src: '../img/effects/pt-1.png',
+        frameRate: 6,
+        frameBuffer: 1,
+    },
+}
+
 // * Configuração da persona:
 const persona = {
     deathPosition: {
@@ -508,6 +522,102 @@ chick.push(new Chick({
     }
 }));
 
+// * Lista de pintinhos
+const ovos = [];
+
+// * Cria uma nova instância do pintinho:
+ovos.push(new Egg({
+    position: {
+        x: 228, // Posição eixo horizontal
+        y: 393, // Posição eixo vertical
+    },
+    imageSrc: egg.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: egg.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: egg.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: egg.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+ovos.push(new Egg({
+    position: {
+        x: 555, // Posição eixo horizontal
+        y: 393, // Posição eixo vertical
+    },
+    imageSrc: egg.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: egg.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: egg.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: egg.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+ovos.push(new Egg({
+    position: {
+        x: 193, // Posição eixo horizontal
+        y: 217, // Posição eixo vertical
+    },
+    imageSrc: egg.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: egg.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: egg.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: egg.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+ovos.push(new Egg({
+    position: {
+        x: 456, // Posição eixo horizontal
+        y: 137, // Posição eixo vertical
+    },
+    imageSrc: egg.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: egg.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: egg.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: egg.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: egg.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: egg.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
 // * Cria uma nova instância do jogador:
 const player = new Player({
     position: {
@@ -625,11 +735,21 @@ function animate() {
         gamba.update();
     });
 
+    // Atualiza a posição do ovo
+    ovos.forEach((ovo) => {
+        ovo.update();
+    });
+
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
+
+    // ! Verifica colisões com os inimigos
     player.checkForEnemyCollision(gambas);
     player.checkForEnemyCollision(enemies);
+
+    // ! Verifica colisões com os elementos
     player.checkForChickCollision(chick);
+    player.checkForChickCollision(ovos);
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) { 
