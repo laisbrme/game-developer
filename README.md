@@ -42,7 +42,16 @@ A pontuação é acumulada através da coleta de itens especiais:
 ## Tecnologias Utilizadas
 
 *   HTML5 Canvas
+*   CSS3
 *   JavaScript
+*   Figma (para design e prototipação)
+*   ChatGPT (para suporte no desenvolvimento e geração de código)
+
+## Prototipagem
+
+O protótipo do jogo foi desenvolvido no Figma e está disponível no link abaixo:
+
+[Figma - CHICKENS in a Dangerous Forest](https://www.figma.com/design/T4tVWbLivLbbvES6Xb3j73/Game-Chickens-in-a-Dangerous-Forest?node-id=0-1&t=OklIW4u8hL29SuJi-1)
 
 ## Como Executar
 
@@ -58,13 +67,11 @@ A pontuação é acumulada através da coleta de itens especiais:
 
     2.1 [CHICKENS]()
 
-## Roadmap
+## Créditos
 
-*   `[ ]` Adicionar mais tipos de inimigos.
-*   `[ ]` Implementar um sistema de vidas.
-*   `[ ]` Adicionar diferentes níveis ou fases.
-*   `[ ]` Adicionar efeitos sonoros e música.
-*   `[ ]` Melhorar a animação dos personagens.
+Assets Falcão, gambá e efeito de morte do inimigo por [Ansimuz](https://ansimuz.itch.io/sunny-land-pixel-game-art)
+
+Arte de fundo por [Trixie](https://trixelized.itch.io/starstring-fields)
 
 <!-- ## Apresentação
 
@@ -72,11 +79,13 @@ O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, desta
 
 [![Watch the video](https://img.youtube.com/vi/LFtSqPSo4L0/hqdefault.jpg)](https://youtu.be/LFtSqPSo4L0) -->
 
-## Créditos
+## Roadmap
 
-Assets Falcão, gambá e efeito de morte do inimigo por [Ansimuz](https://ansimuz.itch.io/sunny-land-pixel-game-art)
-
-Arte de fundo por [Trixie](https://trixelized.itch.io/starstring-fields)
+*   `[ ]` Adicionar mais tipos de inimigos.
+*   `[ ]` Implementar um sistema de vidas.
+*   `[ ]` Adicionar diferentes níveis ou fases.
+*   `[ ]` Adicionar efeitos sonoros e música.
+*   `[ ]` Melhorar a animação dos personagens.
 
 
 ## Contato
