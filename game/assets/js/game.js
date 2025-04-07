@@ -8,31 +8,41 @@ canvas.height = 576;
 
 let isGameOver = false;  // Variável de controle para verificar se o jogo terminou
 
-const eagle = {
+// * Configuração da falcon:
+const falcon = {
     idlePosition: {
-        src: '../img/eagle.png',
+        src: '../img/falcon.png',
         frameRate: 4,
         frameBuffer: 3,
     },
     idleLeftPosition: {
-        src: '../img/eagleLeft.png',
+        src: '../img/falconLeft.png',
         frameRate: 4,
         frameBuffer: 3,
     },
     deathPosition: {
-        src: '../img/enemy-death.png',
+        src: '../img/effects/enemy-death.png',
         frameRate: 6,
         frameBuffer: 3,
     },
 }
 
+// * Configuração da maria:
+const maria = {
+    idlePosition: {
+        src: '../img/maria.png',
+        frameRate: 1,
+        frameBuffer: 1,
+    },
+    rescuePosition: {
+        src: '../img/effects/pt-50.png',
+        frameRate: 6,
+        frameBuffer: 1,
+    },
+}
+
 // * Configuração da persona:
 const persona = {
-    attack1Position: {
-        src: '../img/persona/Attack.png',
-        frameRate: 4,
-        frameBuffer: 3,
-    },
     deathPosition: {
         src: '../img/persona/Death.png',
         frameRate: 1,
@@ -143,25 +153,74 @@ enemies.push(new Enemy({
         x: 25, // Posição eixo horizontal
         y: 110, // Posição eixo vertical
     },
-    imageSrc: eagle.idlePosition.src, // Fonte da imagem do jogador
-    frameRate: eagle.idlePosition.frameRate, // Taxa de quadros do jogador
+    imageSrc: falcon.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do jogador
     collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
     platformCollisionBlocks, // Blocos de colisão das plataformas
     animations: {
         Idle: {
-            imageSrc: eagle.idlePosition.src, // Fonte da imagem do inimigo
-            frameRate: eagle.idlePosition.frameRate, // Taxa de quadros do inimigo
-            frameBuffer: eagle.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
         },
         IdleLeft: {
-            imageSrc: eagle.idleLeftPosition.src, // Fonte da imagem do inimigo
-            frameRate: eagle.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
-            frameBuffer: eagle.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
         },
         Death: {
-            imageSrc: eagle.deathPosition.src, // Fonte da imagem do inimigo
-            frameRate: eagle.deathPosition.frameRate, // Taxa de quadros do inimigo
-            frameBuffer: eagle.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+const chick = [];
+
+// * Cria uma nova instância do pintinho:
+chick.push(new Chick({
+    position: {
+        x: 0, // Posição eixo horizontal
+        y: 89, // Posição eixo vertical
+    },
+    imageSrc: maria.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: maria.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: maria.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: maria.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: maria.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: maria.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: maria.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: maria.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+chick.push(new Chick({
+    position: {
+        x: 100, // Posição eixo horizontal
+        y: 300, // Posição eixo vertical
+    },
+    imageSrc: maria.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: maria.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: maria.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: maria.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: maria.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: maria.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: maria.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: maria.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
         },
     }
 }));
@@ -223,12 +282,8 @@ const player = new Player({
 const keys = {
     a : { pressed: false }, // Tecla 'a' pressionada
     d : { pressed: false }, // Tecla 'd' pressionada
-    // w : { pressed: false }, // Tecla 'w' pressionada
-    // s : { pressed: false }, // Tecla 's' pressionada
     ArrowLeft : { pressed: false }, // Tecla 'ArrowLeft' pressionada
     ArrowRight : { pressed: false }, // Tecla 'ArrowRight' pressionada
-    // ArrowUp : { pressed: false }, // Tecla 'ArrowUp' pressionada
-    // ArrowDown : { pressed: false }, // Tecla 'ArrowDown' pressionada
 }
 
 const background = new Sprite({ // Cria uma nova instância do fundo do jogo
@@ -271,13 +326,21 @@ function animate() {
     // platformCollisionBlocks.forEach((block) => { // Loop para percorrer os blocos de colisão
     //     block.update(); // Atualiza cada bloco de colisão
     // })
+
+    // Atualiza a posição do inimigo
     enemies.forEach((enemy) => {
         enemy.update();
+    });
+
+    // Atualiza a posição do pintinho
+    chick.forEach((chick) => {
+        chick.update();
     });
 
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
     player.checkForEnemyCollision(enemies);
+    player.checkForChickCollision(chick);
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) { 
@@ -341,6 +404,11 @@ function gameOver() {
 // * Função para rejogar após o game over:
 function restartGame() {
     window.location.reload(); // Reinicia o jogo recarregando a página
+}
+
+// * Função para voltar ao menu principal: 
+function backToMenu() {
+    window.location.href = '/game/index.html'; // Redireciona para a página inicial
 }
 
 // * Inicia a animação
