@@ -30,6 +30,25 @@ const falcon = {
     },
 }
 
+// * Configuração da oposum:
+const oposum = {
+    idlePosition: {
+        src: '../img/enemies/oposum.png',
+        frameRate: 6,
+        frameBuffer: 5,
+    },
+    idleLeftPosition: {
+        src: '../img/enemies/oposumLeft.png',
+        frameRate: 6,
+        frameBuffer: 5,
+    },
+    deathPosition: {
+        src: '../img/effects/enemy-death.png',
+        frameRate: 6,
+        frameBuffer: 3,
+    },
+}
+
 // * Configuração da maria:
 const maria = {
     idlePosition: {
@@ -374,7 +393,95 @@ enemies.push(new Enemy({
 }));
 
 
+// * Lista de gambas
+const gambas = [];
 
+// * Cria uma nova instância do gamba:
+gambas.push(new Oposum({
+    position: {
+        x: 130, // Posição eixo horizontal
+        y: 380, // Posição eixo vertical
+    },
+    imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: oposum.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: oposum.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+gambas.push(new Oposum({
+    position: {
+        x: 322, // Posição eixo horizontal
+        y: 380, // Posição eixo vertical
+    },
+    imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: oposum.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: oposum.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+gambas.push(new Oposum({
+    position: {
+        x: 498, // Posição eixo horizontal
+        y: 380, // Posição eixo vertical
+    },
+    imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: oposum.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: oposum.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: oposum.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: oposum.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: oposum.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+// * Lista de pintinhos
 const chick = [];
 
 // * Cria uma nova instância do pintinho:
@@ -513,8 +620,14 @@ function animate() {
         chick.update();
     });
 
+    // Atualiza a posição do gamba
+    gambas.forEach((gamba) => {
+        gamba.update();
+    });
+
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
+    player.checkForEnemyCollision(gambas);
     player.checkForEnemyCollision(enemies);
     player.checkForChickCollision(chick);
 
@@ -589,4 +702,3 @@ function backToMenu() {
 
 // * Inicia a animação
 animate()
-
