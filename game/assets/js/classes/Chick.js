@@ -143,22 +143,22 @@ class Chick extends Sprite { // O pintinho é uma extensão da classe Sprite, qu
         // );
 
         // Desenha a imagem de fundo do pintinho:
-        ctx.fillStyle = 'rgba(0, 255, 0, 0.2)'
-        ctx.fillRect(
-            this.position.x, 
-            this.position.y, 
-            this.width, 
-            this.height
-        )
+        // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        // ctx.fillRect(
+        //     this.position.x, 
+        //     this.position.y, 
+        //     this.width, 
+        //     this.height
+        // )
 
         // Desenha o hitbox do pintinho:
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.2)'
-        ctx.fillRect(
-            this.hitbox.position.x,
-            this.hitbox.position.y,
-            this.hitbox.width,
-            this.hitbox.height
-        )
+        // ctx.fillStyle = 'rgba(255, 0, 0, 0.2)'
+        // ctx.fillRect(
+        //     this.hitbox.position.x,
+        //     this.hitbox.position.y,
+        //     this.hitbox.width,
+        //     this.hitbox.height
+        // )
         
         this.draw(); // Chama o método draw para desenhar o pintinho
         
