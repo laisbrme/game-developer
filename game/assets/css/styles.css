@@ -122,7 +122,7 @@ body {
 .texto p {
     font-size: 1.5rem;
     color: #000;
-    text-align: center;
+    text-align: left;
     margin-top: 1rem;
     margin-left: 12rem;
     margin-right: 12rem;
