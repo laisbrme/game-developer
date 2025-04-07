@@ -8,6 +8,9 @@ canvas.height = 576;
 
 let isGameOver = false;  // Variável de controle para verificar se o jogo terminou
 
+const gravity = 0.1 // Definição da gravidade (constante que afeta a velocidade do jogador)
+
+
 // * Configuração da falcon:
 const falcon = {
     idlePosition: {
@@ -142,8 +145,6 @@ platformCollisions2D.forEach((row, y) => {
     })
 })
 
-const gravity = 0.1 // Definição da gravidade (constante que afeta a velocidade do jogador)
-
 // * Lista de inimigos
 const enemies = [];
 
@@ -176,6 +177,204 @@ enemies.push(new Enemy({
     }
 }));
 
+enemies.push(new Enemy({
+    position: {
+        x: 160, // Posição eixo horizontal
+        y: 177, // Posição eixo vertical
+    },
+    imageSrc: falcon.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 260, // Posição eixo horizontal
+        y: 124, // Posição eixo vertical
+    },
+    imageSrc: falcon.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 248, // Posição eixo horizontal
+        y: 246, // Posição eixo vertical
+    },
+    imageSrc: falcon.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 224, // Posição eixo horizontal
+        y: 310, // Posição eixo vertical
+    },
+    imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 356, // Posição eixo horizontal
+        y: 198, // Posição eixo vertical
+    },
+    imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 448, // Posição eixo horizontal
+        y: 92, // Posição eixo vertical
+    },
+    imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+enemies.push(new Enemy({
+    position: {
+        x: 528, // Posição eixo horizontal
+        y: 222, // Posição eixo vertical
+    },
+    imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do jogador
+    frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: falcon.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        IdleLeft: {
+            imageSrc: falcon.idleLeftPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.idleLeftPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.idleLeftPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Death: {
+            imageSrc: falcon.deathPosition.src, // Fonte da imagem do inimigo
+            frameRate: falcon.deathPosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: falcon.deathPosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+
+
 const chick = [];
 
 // * Cria uma nova instância do pintinho:
@@ -183,29 +382,6 @@ chick.push(new Chick({
     position: {
         x: 0, // Posição eixo horizontal
         y: 89, // Posição eixo vertical
-    },
-    imageSrc: maria.idlePosition.src, // Fonte da imagem do jogador
-    frameRate: maria.idlePosition.frameRate, // Taxa de quadros do jogador
-    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
-    platformCollisionBlocks, // Blocos de colisão das plataformas
-    animations: {
-        Idle: {
-            imageSrc: maria.idlePosition.src, // Fonte da imagem do inimigo
-            frameRate: maria.idlePosition.frameRate, // Taxa de quadros do inimigo
-            frameBuffer: maria.idlePosition.frameBuffer, // Buffer de quadros do inimigo
-        },
-        Rescue: {
-            imageSrc: maria.rescuePosition.src, // Fonte da imagem do inimigo
-            frameRate: maria.rescuePosition.frameRate, // Taxa de quadros do inimigo
-            frameBuffer: maria.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
-        },
-    }
-}));
-
-chick.push(new Chick({
-    position: {
-        x: 100, // Posição eixo horizontal
-        y: 300, // Posição eixo vertical
     },
     imageSrc: maria.idlePosition.src, // Fonte da imagem do jogador
     frameRate: maria.idlePosition.frameRate, // Taxa de quadros do jogador
