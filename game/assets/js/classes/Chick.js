@@ -275,13 +275,12 @@ class Chick extends Sprite { // O pintinho é uma extensão da classe Sprite, qu
         }
     }
 
-    destroy(enemies, index) {
+    destroy(chicks, index) {
         // Muda a sprite do pintinho para "pt-50.png"
         this.switchSprite('Rescue'); 
-    
         // Remove o pintinho após um pequeno atraso
         setTimeout(() => {
-            enemies.splice(index, 1); // Remove o pintinho da lista de pintinhos
-        }, 500); // 500ms de atraso para exibir a animação de morte
+            chicks.splice(index, 1); // Remove o pintinho da lista de pintinhos
+        }, 100); // 100ms de atraso para exibir a animação de morte
     }
 }
