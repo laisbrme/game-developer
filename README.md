@@ -64,13 +64,19 @@ A pontuação é acumulada através da coleta de itens especiais:
 *   `[ ]` Implementar um sistema de vidas.
 *   `[ ]` Adicionar diferentes níveis ou fases.
 *   `[ ]` Adicionar efeitos sonoros e música.
-*   `[ ]` Melhorar a animação do personagem.
+*   `[ ]` Melhorar a animação dos personagens.
 
 <!-- ## Apresentação
 
 O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, destacando suas principais funcionalidades e fluxo de uso.
 
 [![Watch the video](https://img.youtube.com/vi/LFtSqPSo4L0/hqdefault.jpg)](https://youtu.be/LFtSqPSo4L0) -->
+
+## Créditos
+
+Assets Falcão, gambá e efeito de morte do inimigo por [Ansimuz](https://ansimuz.itch.io/sunny-land-pixel-game-art)
+
+Arte de fundo por [Trixie](https://trixelized.itch.io/starstring-fields)
 
 
 ## Contato
