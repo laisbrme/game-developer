@@ -14,12 +14,12 @@ const gravity = 0.1 // Definição da gravidade (constante que afeta a velocidad
 // * Configuração da falcon:
 const falcon = {
     idlePosition: {
-        src: '../img/falcon.png',
+        src: '../img/enemies/falcon.png',
         frameRate: 4,
         frameBuffer: 3,
     },
     idleLeftPosition: {
-        src: '../img/falconLeft.png',
+        src: '../img/enemies/falconLeft.png',
         frameRate: 4,
         frameBuffer: 3,
     },
