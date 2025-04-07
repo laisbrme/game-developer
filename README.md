@@ -1,4 +1,4 @@
-![CHICKENS in a Dangerous Forest Cover](game/assets/img/capa-2.png)
+![CHICKENS in a Dangerous Forest Cover](game/assets/img/GitHub%20Repo%20Card.png)
 
 # 🐔 CHICKENS in a Dangerous Forest
 CHICKENS in a Dangerous Forest é um jogo eletrônico para navegadores.
@@ -88,22 +88,3 @@ O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, desta
 O código deste projeto está licenciado sob a [Licença MIT](LICENSE.md).
 
 As imagens e outros ativos criativos estão licenciados sob a [Licença Creative Commons Atribuição-NãoComercial 4.0 Internacional (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
-
-
-<!-- 
-    TODO: The Essentials:
-    - [x] Project setup
-    - [x] Gravity
-    - [x] Player movement
-    - [x] Background Sprite
-    - [x] Collision blocks
-    - [x] Collision detection
-    - [x] Sprite animation
-    - [x] Hitbox implementation
-    - [x] Sprite swapping
-    - [x] Platform jumping
-    - [x] Horizontal camera panning
-    - [x] Vertical camera panning
-    - [ ] Enemys
-    - [ ]  
--->
