@@ -64,6 +64,20 @@ const maria = {
 }
 
 // * Configuração da egg:
+const basketEggs = {
+    idlePosition: {
+        src: '../img/cesta-ovos.png',
+        frameRate: 1,
+        frameBuffer: 1,
+    },
+    rescuePosition: {
+        src: '../img/effects/pt-10.png',
+        frameRate: 6,
+        frameBuffer: 1,
+    },
+}
+
+// * Configuração da egg:
 const egg = {
     idlePosition: {
         src: '../img/ovo.png',
@@ -618,6 +632,56 @@ ovos.push(new Egg({
     }
 }));
 
+// * Lista de cesta de ovos
+const cestasOvos = [];
+
+// * Cria uma nova instância da cesta de ovos:
+cestasOvos.push(new BasketEggs({
+    position: {
+        x: 512, // Posição eixo horizontal
+        y: 52, // Posição eixo vertical
+    },
+    imageSrc: basketEggs.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: basketEggs.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: basketEggs.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: basketEggs.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: basketEggs.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: basketEggs.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: basketEggs.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: basketEggs.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
+cestasOvos.push(new BasketEggs({
+    position: {
+        x: 208, // Posição eixo horizontal
+        y: 52, // Posição eixo vertical
+    },
+    imageSrc: basketEggs.idlePosition.src, // Fonte da imagem do jogador
+    frameRate: basketEggs.idlePosition.frameRate, // Taxa de quadros do jogador
+    collisionBlocks, // é o mesmo que escrever >> collisionBlocks: collisionBlocks, // Blocos de colisão do chão
+    platformCollisionBlocks, // Blocos de colisão das plataformas
+    animations: {
+        Idle: {
+            imageSrc: basketEggs.idlePosition.src, // Fonte da imagem do inimigo
+            frameRate: basketEggs.idlePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: basketEggs.idlePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+        Rescue: {
+            imageSrc: basketEggs.rescuePosition.src, // Fonte da imagem do inimigo
+            frameRate: basketEggs.rescuePosition.frameRate, // Taxa de quadros do inimigo
+            frameBuffer: basketEggs.rescuePosition.frameBuffer, // Buffer de quadros do inimigo
+        },
+    }
+}));
+
 // * Cria uma nova instância do jogador:
 const player = new Player({
     position: {
@@ -740,6 +804,11 @@ function animate() {
         ovo.update();
     });
 
+    // Atualiza a posição do ovo
+    cestasOvos.forEach((cesta) => {
+        cesta.update();
+    });
+
     player.checkForHorizontalCanvasCollision() // Verifica colisão horizontal do jogador com o canvas
     player.update(); // Atualiza a posição do jogador
 
@@ -750,6 +819,7 @@ function animate() {
     // ! Verifica colisões com os elementos
     player.checkForChickCollision(chick);
     player.checkForChickCollision(ovos);
+    player.checkForChickCollision(cestasOvos);
 
     player.velocity.x = 0; // Zera a velocidade horizontal do jogador
     if (keys.d.pressed || keys.ArrowRight.pressed) { 
