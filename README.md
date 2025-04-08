@@ -65,7 +65,7 @@ O protótipo do jogo foi desenvolvido no Figma e está disponível no link abaix
 
 2.  Pelo Link do Deploy:
 
-    2.1 [CHICKENS]()
+    2.1 [CHICKENS in a Dangerous Forest](https://laisbrme.github.io/game-developer/)
 
 ## Créditos
 
@@ -73,11 +73,13 @@ Assets Falcão, gambá e efeito de morte do inimigo por [Ansimuz](https://ansimu
 
 Arte de fundo por [Trixie](https://trixelized.itch.io/starstring-fields)
 
-<!-- ## Apresentação
+
+## Apresentação
 
 O vídeo apresenta o sistema de votação e demonstra o seu funcionamento, destacando suas principais funcionalidades e fluxo de uso.
 
-[![Watch the video](https://img.youtube.com/vi/LFtSqPSo4L0/hqdefault.jpg)](https://youtu.be/LFtSqPSo4L0) -->
+[![Watch the video](https://img.youtube.com/vi/gHf5ND2g_PI/hqdefault.jpg)](https://youtu.be/gHf5ND2g_PI)
+
 
 ## Roadmap
 
